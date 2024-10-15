@@ -61,7 +61,36 @@ const TypingTester = () => {
     setShowTip(false);
   };
 
-  // ... keep existing code (other functions)
+  const endTest = () => {
+    setIsRunning(false);
+    calculateResults();
+    setShowResults(true);
+  };
+
+  const calculateResults = () => {
+    const words = text.split(' ').length;
+    const characters = text.length;
+    const timeInMinutes = timer / 60;
+    const calculatedWpm = Math.round(words / timeInMinutes);
+    const correctCharacters = input.split('').filter((char, index) => char === text[index]).length;
+    const calculatedAccuracy = Math.round((correctCharacters / characters) * 100);
+
+    setWpm(calculatedWpm);
+    setAccuracy(calculatedAccuracy);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isRunning) setIsRunning(true);
+    setInput(e.target.value);
+  };
+
+  const handleDonation = () => {
+    window.open('upi://pay?pa=adnanmuhammad4393@okicici&pn=Adnan+Muhammad&am=99&tn=supporting comicfix community by using Typing Tester', '_blank');
+    toast({
+      title: "Thank you for your support!",
+      description: "Your donation helps the ComicFix community.",
+    });
+  };
 
   const handleShowTip = () => {
     setShowTip(true);
