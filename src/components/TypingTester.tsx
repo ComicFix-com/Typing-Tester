@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { FaPlay, FaRedo, FaDonate, FaClock, FaKeyboard, FaBullseye } from 'react-icons/fa';
 
 const TypingTester = () => {
   const [text, setText] = useState('The quick brown fox jumps over the lazy dog.');
@@ -77,40 +78,46 @@ const TypingTester = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl bg-white shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-2xl font-['Roboto'] text-[#4A90E2]">Test Your Typing Skills</CardTitle>
+    <Card className="w-full max-w-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-xl rounded-lg overflow-hidden">
+      <CardHeader className="bg-opacity-30 bg-black">
+        <CardTitle className="text-3xl font-bold text-center">Premium Typing Test</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="font-['Open Sans'] text-gray-700 mb-4">{text}</p>
+      <CardContent className="space-y-6 p-6">
+        <p className="text-lg font-medium bg-white bg-opacity-10 p-4 rounded-lg">{text}</p>
         <Input
           ref={inputRef}
           type="text"
           value={input}
           onChange={handleInputChange}
           disabled={!isRunning || showResults}
-          className="w-full p-2 border rounded"
+          className="w-full p-3 bg-white bg-opacity-20 border-2 border-white border-opacity-30 rounded-lg text-white placeholder-white placeholder-opacity-70"
           placeholder="Start typing here..."
         />
-        <div className="flex justify-between text-sm font-['Lato']">
-          <span>Time: {timer}s</span>
-          <span>WPM: {wpm}</span>
-          <span>Accuracy: {accuracy}%</span>
+        <div className="flex justify-between text-sm font-medium">
+          <span className="flex items-center"><FaClock className="mr-2" /> Time: {timer}s</span>
+          <span className="flex items-center"><FaKeyboard className="mr-2" /> WPM: {wpm}</span>
+          <span className="flex items-center"><FaBullseye className="mr-2" /> Accuracy: {accuracy}%</span>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button onClick={startTest} className="bg-[#50E3C2] hover:bg-[#3AC7A8] text-white">
-          {isRunning ? 'Restart' : 'Start'}
+      <CardFooter className="flex justify-between bg-opacity-30 bg-black p-4">
+        <Button 
+          onClick={startTest} 
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          {isRunning ? <><FaRedo className="mr-2" /> Restart</> : <><FaPlay className="mr-2" /> Start</>}
         </Button>
-        <Button onClick={handleDonation} className="bg-[#4A90E2] hover:bg-[#3A7BC2] text-white">
-          Donate
+        <Button 
+          onClick={handleDonation} 
+          className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          <FaDonate className="mr-2" /> Donate
         </Button>
       </CardFooter>
       {showResults && (
-        <div className="p-4 bg-gray-100 rounded-b-lg">
-          <h3 className="text-xl font-['Montserrat'] text-[#4A90E2] mb-2">Results</h3>
-          <p className="font-['Open Sans']">Words per minute: {wpm}</p>
-          <p className="font-['Open Sans']">Accuracy: {accuracy}%</p>
+        <div className="p-6 bg-white bg-opacity-10">
+          <h3 className="text-2xl font-bold text-center mb-4">Results</h3>
+          <p className="text-lg text-center">Words per minute: {wpm}</p>
+          <p className="text-lg text-center">Accuracy: {accuracy}%</p>
         </div>
       )}
     </Card>
